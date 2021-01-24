@@ -1,19 +1,16 @@
 #!/data/data/com.termux/files/usr/bin/bash
 
-str0="$(termux-dialog sheet -v "Best,720p,spotify"  | jq '.text' -r)"
-str1="Best"
+url=$1
+echo "----------Last updated Jan 24,2021----------"
+str0="$(termux-dialog sheet -v "BestVideo,720p"  | jq '.text' -r)"
+str1="BestVideo"
 str2="720p"
-str3="spotify"
 
 if [ "$str0" == "$str1" ]; then
-youtube-dl $1
+youtube-dlc -c -i "$url" -o "./storage/shared/Pictures/Twitter/%(title).20s.%(ext)s"
 termux-media-scan -r /data/data/com.termux/files/home/storage/shared/Pictures/Twitter/
 
 elif [ "$str0" == "$str2" ]; then
-gallery-dl --no-mtime  -d /data/data/com.termux/files/home/storage/shared/imgs $1
-termux-media-scan -r /data/data/com.termux/files/home/storage/shared/Pictures/Twitter/
-
-elif [ "$str0" == "$str3" ]; then
-youtube-dl  --config-location ~/.config/youtube-dl/configa  $1
+youtube-dlc -c -i "$url" -o "./storage/shared/Pictures/Twitter/%(title).20s.%(ext)s" -f 'bestvideo[height<=720]+bestaudio/best[height<=720]/best'
 termux-media-scan -r /data/data/com.termux/files/home/storage/shared/Pictures/Twitter/
 fi
