@@ -1,0 +1,19 @@
+#!/data/data/com.termux/files/usr/bin/bash
+
+str0="$(termux-dialog sheet -v "Best,720p,spotify"  | jq '.text' -r)"
+str1="Best"
+str2="720p"
+str3="spotify"
+
+if [ "$str0" == "$str1" ]; then
+youtube-dl $1
+termux-media-scan -r /data/data/com.termux/files/home/storage/shared/Pictures/Twitter/
+
+elif [ "$str0" == "$str2" ]; then
+gallery-dl --no-mtime  -d /data/data/com.termux/files/home/storage/shared/imgs $1
+termux-media-scan -r /data/data/com.termux/files/home/storage/shared/Pictures/Twitter/
+
+elif [ "$str0" == "$str3" ]; then
+youtube-dl  --config-location ~/.config/youtube-dl/configa  $1
+termux-media-scan -r /data/data/com.termux/files/home/storage/shared/Pictures/Twitter/
+fi
